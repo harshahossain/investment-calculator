@@ -1,24 +1,7 @@
 import React, { useState } from "react";
 
-export default function UserInput() {
-  //
-  const [userInput, setUserInput] = useState({
-    initialInvestment: 10000,
-    annualInvestment: 1200,
-    expectedReturn: 6,
-    duration: 10,
-  });
-
-  function handleChange(inputIdentifier, newValue) {
-    setUserInput((prevState) => {
-      return {
-        //second bracket cause objcet?
-        ...prevState,
-        [inputIdentifier]: newValue, //msut use [] so the fn understands im not adding something new. but updatinfg existing fields
-      };
-    });
-  }
-
+export default function UserInput({ onInputChange, userInput }) {
+  ////input type number but the value we get from event target value is always a string
   return (
     <section id="user-input">
       <div className="input-group">
@@ -29,7 +12,7 @@ export default function UserInput() {
             required
             value={userInput.initialInvestment}
             onChange={
-              (evt) => handleChange("initialInvestment", evt.target.value) //to match it with the property name in the state, theres '' otherwise js will think of it as a const or fn or hwhjatever
+              (evt) => onInputChange("initialInvestment", evt.target.value) //to match it with the property name in the state, theres '' otherwise js will think of it as a const or fn or hwhjatever
             }
           />
         </p>
@@ -40,7 +23,7 @@ export default function UserInput() {
             required
             value={userInput.annualInvestment}
             onChange={(evt) =>
-              handleChange("annualInvestment", evt.target.value)
+              onInputChange("annualInvestment", evt.target.value)
             }
           />
         </p>
@@ -52,7 +35,9 @@ export default function UserInput() {
             type="number"
             required
             value={userInput.expectedReturn}
-            onChange={(evt) => handleChange("expectedReturn", evt.target.value)}
+            onChange={(evt) =>
+              onInputChange("expectedReturn", evt.target.value)
+            }
           />
         </p>
         <p>
@@ -61,7 +46,7 @@ export default function UserInput() {
             type="number"
             required
             value={userInput.duration}
-            onChange={(evt) => handleChange("duration", evt.target.value)}
+            onChange={(evt) => onInputChange("duration", evt.target.value)}
           />
         </p>
       </div>
